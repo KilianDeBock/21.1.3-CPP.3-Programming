@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Settings -->
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Stualyttle" name="author">
+    <meta content="Project" name="description">
+    <meta content="Stualyttle" name="keywords">
+    <title>Title</title>
+
+    <!-- CSS -->
+    <link href="/css/styles.css" rel="stylesheet">
+    <!-- Javascript -->
+    <script src="https://livejs.com/live.js" defer></script>
+    <script src="/scripts/main.js" defer></script>
+    <!-- Favicons -->
+    <link href="https://lyttle.it/favicon.ico" rel="icon">
+</head>
+
+<body>
+<header>
+    <div class="flex-between">
+        <section class="logo"><img class="logo_img" src="/media/images/logo.png" alt="Logo">Just Do It!</section>
+        <nav class="main-nav"><a href="#">logout</a></nav>
+    </div>
+</header>
+
+<main>
+    <aside class="categories">
+        <nav class="categories_nav">
+            <h3>Categories</h3>
+            <ul>
+                <li><a>Default</a></li>
+                <li><a>Household</a></li>
+            </ul>
+        </nav>
+    </aside>
+    <div class="content">
+        <section class="todo">
+            <h2>We've got things to do!</h2>
+            <ul class="tasks">
+                <li class="task-item override" data-id="theRealIdHere">
+                    <div class="content">
+                        <button data-action="complete" class="actionItem completeItem"></button>
+                        <p class="task">Print new documentation papers.</p>
+                        <button data-action="edit" class="actionItem editItem"></button>
+                        <button data-action="delete" class="actionItem deleteItem"></button>
+                    </div>
+                </li>
+                <li class="task-item" data-id="theRealIdHere">
+                    <div class="content">
+                        <button data-action="complete" class="actionItem completeItem"></button>
+                        <p class="task">Make new function in Discord bot.</p>
+                        <button data-action="edit" class="actionItem editItem"></button>
+                        <button data-action="delete" class="actionItem deleteItem"></button>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <section class="complete">
+            <h2>Things you've completed!</h2>
+            <ul class="tasks">
+                <li class="task-item" data-id="theRealIdHere">
+                    <div class="content">
+                        <p class="task">Make meme your project manager!</p>
+                        <button data-action="delete" class="actionItem deleteItem"></button>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </div>
+</main>
+
+<footer></footer>
+</body>
+</html>
