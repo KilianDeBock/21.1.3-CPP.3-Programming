@@ -98,7 +98,8 @@ main > * {
     width: calc(50vw + 4rem);
 }
 
-.task-item .content {
+.task-item .content,
+.todo-add input {
     display: flex;
     width: 50vw;
     align-items: center;

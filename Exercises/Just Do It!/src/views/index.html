@@ -31,14 +31,18 @@
         <nav class="categories_nav">
             <h3>Categories</h3>
             <ul>
-                <li><a>Default</a></li>
-                <li><a>Household</a></li>
+                <li>
+                    <button>Default</button>
+                </li>
+                <li>
+                    <button>Household</button>
+                </li>
             </ul>
         </nav>
     </aside>
     <div class="content">
         <form class="todo-add" action="POST">
-            <input type="text">
+            <input type="text" maxlength="10" placeholder="Make food">
             <button>Send</button>
         </form>
         <section class="todo">
