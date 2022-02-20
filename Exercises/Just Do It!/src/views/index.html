@@ -37,23 +37,27 @@
         </nav>
     </aside>
     <div class="content">
+        <form class="todo-add" action="POST">
+            <input type="text">
+            <button>Send</button>
+        </form>
         <section class="todo">
             <h2>We've got things to do!</h2>
             <ul class="tasks">
                 <li class="task-item override" data-id="theRealIdHere">
                     <div class="content">
-                        <button data-action="complete" class="actionItem completeItem"></button>
+                        <button data-action="complete" class="actionItem completeItem">Complete</button>
                         <p class="task">Print new documentation papers.</p>
-                        <button data-action="edit" class="actionItem editItem"></button>
-                        <button data-action="delete" class="actionItem deleteItem"></button>
+                        <button data-action="edit" class="actionItem editItem">Edit</button>
+                        <button data-action="delete" class="actionItem deleteItem">Delete</button>
                     </div>
                 </li>
                 <li class="task-item" data-id="theRealIdHere">
                     <div class="content">
-                        <button data-action="complete" class="actionItem completeItem"></button>
+                        <button data-action="complete" class="actionItem completeItem">Complete</button>
                         <p class="task">Make new function in Discord bot.</p>
-                        <button data-action="edit" class="actionItem editItem"></button>
-                        <button data-action="delete" class="actionItem deleteItem"></button>
+                        <button data-action="edit" class="actionItem editItem">Edit</button>
+                        <button data-action="delete" class="actionItem deleteItem">Delete</button>
                     </div>
                 </li>
             </ul>
@@ -64,7 +68,7 @@
                 <li class="task-item" data-id="theRealIdHere">
                     <div class="content">
                         <p class="task">Make meme your project manager!</p>
-                        <button data-action="delete" class="actionItem deleteItem"></button>
+                        <button data-action="delete" class="actionItem deleteItem">Delete</button>
                     </div>
                 </li>
             </ul>
