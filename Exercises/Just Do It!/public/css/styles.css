@@ -47,7 +47,8 @@ a:hover {
 
 header,
 .categories {
-    border-bottom: 1px solid var(--color-dark-200);
+    border: 1px solid var(--color-dark-200);
+    border-top: none;
     background-color: var(--color-dark-500)
 }
 
@@ -114,19 +115,29 @@ main > * {
 
 @media (min-width: 50rem) {
     .categories {
-        position: absolute;
+        overflow: hidden;
+        position: sticky;
+        top: -5rem;
+        padding-left: 2rem;
+        margin-top: 1rem;
+        width: 20rem;
+        border: none
+    }
+
+    .categories_background {
+        border: 1px solid var(--color-dark-200);
         z-index: -1;
         top: 0;
         left: 0;
-        padding-left: 2rem;
-        padding-top: 8rem;
-        height: 100vh;
+        background-color: var(--color-dark-500);
+        position: absolute;
         width: 20rem;
+        height: 100vh;
     }
+}
 
-    .content {
-        margin-left: 20rem;
-    }
+.categories h3 {
+    margin-bottom: 1.5rem;
 }
 
 .categories button {
@@ -135,7 +146,7 @@ main > * {
     width: 100%;
     text-align: left;
     transition: border .2s ease-in-out;
-    padding: 1rem .5rem;
+    padding: 1rem;
     border-left: .3rem solid transparent;
 }
 
@@ -144,6 +155,18 @@ main > * {
     cursor: pointer;
     font-weight: bold;
     border-left: .3rem solid var(--color-blue-300);
+}
+
+.content {
+    padding: 3rem 2rem;
+    width: 100%;
+}
+
+@media (min-width: 50rem) {
+
+    .content {
+        width: calc(100% - 20rem);
+    }
 }
 
 .todo h2 {
@@ -156,8 +179,7 @@ main > * {
 
 .todo-add,
 .task-item .task {
-    width: calc(100% - 6rem);
-    margin-left: 3rem;
+    width: 100%;
     padding: 1rem 2rem;
     min-height: 3rem;
     background-color: var(--color-dark-200);
@@ -165,8 +187,10 @@ main > * {
 }
 
 .todo-add {
+    position: relative;
     display: flex;
     background-color: var(--color-dark-500);
+    margin-bottom: 1rem;
 }
 
 .todo-add input {
@@ -175,9 +199,24 @@ main > * {
 
 .todo-add button {
     font-size: 0;
-    padding: 1rem;
+    padding: 1.2rem;
+    right: .4rem;
+    top: .4rem;
+    position: absolute;
     border-radius: 50%;
+    background-position: 35% 50%;
+    background-repeat: no-repeat;
+    background-size: 60%;
     background-color: var(--color-green-300);
+    background-image: url("/media/icons/paper-plane-solid.svg");
+}
+
+.todo-add button:hover {
+    background-color: var(--color-green-500);
+}
+
+.todo-add button:active {
+    background-color: var(--color-green-800);
 }
 
 .task-item {
@@ -206,7 +245,7 @@ main > * {
 }
 
 .completeItem {
-    left: 2rem;
+    left: -1rem;
     background-color: var(--color-green-300);
     background-image: url("/media/icons/check-solid.svg");
 }
@@ -220,7 +259,7 @@ main > * {
 }
 
 .deleteItem {
-    right: 2rem;
+    right: -1rem;
     background-color: var(--color-red-200);
     background-image: url("/media/icons/trash-can-solid.svg");
 }
@@ -234,7 +273,7 @@ main > * {
 }
 
 .editItem {
-    left: calc(50% - 1.5rem);
+    left: calc(50% - .75rem);
     top: 0;
     background-color: var(--color-blue-300);
     background-image: url("/media/icons/pen-to-square-solid.svg");
