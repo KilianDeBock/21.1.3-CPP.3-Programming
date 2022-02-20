@@ -19,13 +19,16 @@
     --color-red-700: #8a001f;
 }
 
+
+/* Defaults */
+
 body {
     font-family: Helvetica, Arial, sans-serif;
     background-color: var(--color-dark-800);
     color: var(--color-white-400);
 }
 
-a:not(.x) {
+a {
     color: var(--color-white-400);
     text-decoration: none;
     transition: background .35s ease-in-out;
@@ -35,36 +38,68 @@ a:not(.x) {
     background-size: 0 50%;
 }
 
-a:hover:not(.x) {
+a:hover {
     background-size: 100% 50%;
 }
 
-header {
+
+/* Styling */
+
+header,
+.categories {
     border-bottom: 1px solid var(--color-dark-200);
     background-color: var(--color-dark-500)
 }
 
-.main-nav {
-    font-size: 1.2rem;
-}
-
-.flex-between {
-    padding: 1rem 2rem;
+header {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     align-items: center;
+    gap: 1rem
+}
+
+header > * {
+    width: 100%;
+    padding: .8rem .5rem
 }
 
 .logo {
     font-size: 2rem;
     display: flex;
+    flex-wrap: wrap;
     gap: 1.5rem;
     align-items: center;
+    justify-content: center;
+}
+
+
+@media (min-width: 30rem) {
+    .logo {
+        width: auto;
+        flex-wrap: nowrap;
+    }
+}
+
+.logo span {
+    width: 100%;
+    text-align: center;
 }
 
 .logo_img {
     height: 3.5rem;
+}
+
+.main-nav {
+    font-size: 1.2rem;
+    width: 100%;
+    text-align: center;
+}
+
+@media (min-width: 30rem) {
+    .main-nav {
+        width: auto;
+        margin: 0 .5rem 0 auto;
+    }
 }
 
 main {
@@ -73,61 +108,105 @@ main {
 }
 
 main > * {
-    padding: 2rem 3rem;
+    width: 100%;
+    padding: 2rem .5rem;
 }
 
-.categories {
-    border-bottom: 1px solid var(--color-dark-200);
-    background-color: var(--color-dark-500);
-    height: calc(100vh - 5.6rem);
+@media (min-width: 50rem) {
+    .categories {
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        padding-left: 2rem;
+        padding-top: 8rem;
+        height: 100vh;
+        width: 20rem;
+    }
+
+    .content {
+        margin-left: 20rem;
+    }
+}
+
+.categories button {
+    letter-spacing: .05rem;
+    margin-top: .5rem;
+    width: 100%;
+    text-align: left;
+    transition: border .2s ease-in-out;
+    padding: 1rem .5rem;
+    border-left: .3rem solid transparent;
+}
+
+.categories .topic.active button,
+.categories button:hover {
+    cursor: pointer;
+    font-weight: bold;
+    border-left: .3rem solid var(--color-blue-300);
 }
 
 .todo h2 {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 .complete h2 {
-    margin: 5rem 0 3rem;
+    margin: 5rem 0 2rem;
+}
+
+.todo-add,
+.task-item .task {
+    width: calc(100% - 6rem);
+    margin-left: 3rem;
+    padding: 1rem 2rem;
+    min-height: 3rem;
+    background-color: var(--color-dark-200);
+    border-radius: 3rem;
+}
+
+.todo-add {
+    display: flex;
+    background-color: var(--color-dark-500);
+}
+
+.todo-add input {
+    width: calc(100% - 2rem);
+}
+
+.todo-add button {
+    font-size: 0;
+    padding: 1rem;
+    border-radius: 50%;
+    background-color: var(--color-green-300);
 }
 
 .task-item {
-    display: flex;
     position: relative;
-    align-items: center;
-    margin-bottom: 1rem;
-    width: calc(50vw + 4rem);
-}
-
-.task-item .content,
-.todo-add input {
     display: flex;
-    width: 50vw;
+    width: 100%;
     align-items: center;
-    background-color: var(--color-dark-200);
-    border-radius: 3rem;
-    overflow: hidden;
-    padding: .3rem;
+    padding-top: 1rem;
 }
 
 .actionItem {
-    transition: all .2s ease-in-out;
-    border-radius: 3rem;
+    position: absolute;
+    transition: padding .2s ease-in-out, margin .2s ease-in-out;
+    border-radius: 50%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: 60%;
     font-size: 0;
+    padding: 0;
+    margin: 1rem;
 }
 
 .task-item:hover .actionItem {
-    padding: 1.1rem;
-}
-
-.task-item:hover .deleteItem {
-    padding: 1.5rem;
-    margin-left: 0;
+    padding: 1rem;
+    margin: 0;
 }
 
 .completeItem {
+    left: 2rem;
     background-color: var(--color-green-300);
     background-image: url("/media/icons/check-solid.svg");
 }
@@ -141,17 +220,12 @@ main > * {
 }
 
 .deleteItem {
-    transition: all .3s ease-in;
-    background-size: 40%;
-    margin-left: 1.5rem;
-    position: absolute;
-    left: calc(100% - 3rem);
+    right: 2rem;
     background-color: var(--color-red-200);
     background-image: url("/media/icons/trash-can-solid.svg");
 }
 
 .deleteItem:hover {
-    transition: all .2s ease-in-out;
     background-color: var(--color-red-400);
 }
 
@@ -160,7 +234,8 @@ main > * {
 }
 
 .editItem {
-    margin-left: auto;
+    left: calc(50% - 1.5rem);
+    top: 0;
     background-color: var(--color-blue-300);
     background-image: url("/media/icons/pen-to-square-solid.svg");
 }
@@ -171,9 +246,4 @@ main > * {
 
 .editItem:active {
     background-color: var(--color-blue-800);
-}
-
-.task {
-    font-size: 1.5rem;
-    margin: 0 1.5rem;
 }

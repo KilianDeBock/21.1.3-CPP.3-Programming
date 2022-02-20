@@ -20,49 +20,48 @@
 
 <body>
 <header>
-    <div class="flex-between">
-        <section class="logo"><img class="logo_img" src="/media/images/logo.png" alt="Logo">Just Do It!</section>
-        <nav class="main-nav"><a href="#">logout</a></nav>
-    </div>
+    <section class="logo">
+        <img class="logo_img" src="/media/images/logo.png" alt="Logo">
+        <span>Just Do It!</span>
+    </section>
+    <nav class="main-nav">
+        <a href="#">logout</a>
+    </nav>
 </header>
 
 <main>
     <aside class="categories">
         <nav class="categories_nav">
             <h3>Categories</h3>
-            <ul>
-                <li>
+            <ul class="topics">
+                <li class="topic active">
                     <button>Default</button>
                 </li>
-                <li>
+                <li class="topic">
                     <button>Household</button>
                 </li>
             </ul>
         </nav>
     </aside>
     <div class="content">
-        <form class="todo-add" action="POST">
-            <input type="text" maxlength="10" placeholder="Make food">
-            <button>Send</button>
-        </form>
         <section class="todo">
-            <h2>We've got things to do!</h2>
+            <h2><label for="todo-add-input">We've got things to do!</label></h2>
+            <form class="todo-add" action="POST">
+                <input id="todo-add-input" type="text" maxlength="50" placeholder="Make food">
+                <button>Send</button>
+            </form>
             <ul class="tasks">
                 <li class="task-item override" data-id="theRealIdHere">
-                    <div class="content">
-                        <button data-action="complete" class="actionItem completeItem">Complete</button>
-                        <p class="task">Print new documentation papers.</p>
-                        <button data-action="edit" class="actionItem editItem">Edit</button>
-                        <button data-action="delete" class="actionItem deleteItem">Delete</button>
-                    </div>
+                    <button data-action="complete" class="actionItem completeItem">Complete</button>
+                    <p class="task">Print new documentation papers.</p>
+                    <button data-action="edit" class="actionItem editItem">Edit</button>
+                    <button data-action="delete" class="actionItem deleteItem">Delete</button>
                 </li>
                 <li class="task-item" data-id="theRealIdHere">
-                    <div class="content">
-                        <button data-action="complete" class="actionItem completeItem">Complete</button>
-                        <p class="task">Make new function in Discord bot.</p>
-                        <button data-action="edit" class="actionItem editItem">Edit</button>
-                        <button data-action="delete" class="actionItem deleteItem">Delete</button>
-                    </div>
+                    <button data-action="complete" class="actionItem completeItem">Complete</button>
+                    <p class="task">Make new function in Discord bot.Make new function</p>
+                    <button data-action="edit" class="actionItem editItem">Edit</button>
+                    <button data-action="delete" class="actionItem deleteItem">Delete</button>
                 </li>
             </ul>
         </section>
@@ -70,10 +69,8 @@
             <h2>Things you've completed!</h2>
             <ul class="tasks">
                 <li class="task-item" data-id="theRealIdHere">
-                    <div class="content">
-                        <p class="task">Make meme your project manager!</p>
-                        <button data-action="delete" class="actionItem deleteItem">Delete</button>
-                    </div>
+                    <p class="task">Make meme your project manager!</p>
+                    <button data-action="delete" class="actionItem deleteItem">Delete</button>
                 </li>
             </ul>
         </section>

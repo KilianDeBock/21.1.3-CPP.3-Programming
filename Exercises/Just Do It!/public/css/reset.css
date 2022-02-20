@@ -398,5 +398,6 @@ select {
     font: inherit;
     color: inherit;
     border: none;
-    background: unset;
+    outline: none;
+    background: none;
 }
