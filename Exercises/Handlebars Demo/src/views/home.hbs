@@ -1,5 +1,17 @@
-Welcome to Hanlebars {{data.firstname}} {{data.lastname}}
+{{> navigation}}
 
+Welcome to Handlebars,
 {{#with data}}
-    {{firstname}} {{firstname}}
+    {{#with person}}
+        {{firstname}} {{lastname}}!
+    {{/with}}
+
+    <br>
+
+    Mijn interesses zijn:
+    <ul>
+        {{#each interests}}
+            <li>{{name}}</li>
+        {{/each}}
+    </ul>
 {{/with}}

@@ -3,11 +3,26 @@
  */
 
 export const home = (req, res) => {
-  const person = {
-    data: {
+  const primaryMenuItems = [
+    {
+      text: "Google",
+      url: "https://google.com",
+    },
+    {
+      text: "Facebook",
+      url: "https://facebook.com",
+    },
+  ];
+  const data = {
+    person: {
       firstname: "Kilian",
       lastname: "De Bock",
     },
+    interests: [
+      { name: "Theater" },
+      { name: "Fietsen" },
+      { name: "Development" },
+    ],
   };
-  res.render("home", person);
+  res.render("home", { data, primaryMenuItems });
 };
