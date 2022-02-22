@@ -4,6 +4,7 @@ import * as path from "path";
 import { create } from "express-handlebars";
 import { SOURCE_PATH } from "./consts.js";
 import { home } from "./controllers/home.js";
+import HandlebarsHelpers from "./lib/Handlebarshelpers.js";
 
 const app = express();
 app.use(express.static("public"));
@@ -13,6 +14,7 @@ app.use(express.static("public"));
  */
 
 const hbs = create({
+  helpers: HandlebarsHelpers,
   extname: "hbs",
 });
 app.engine("hbs", hbs.engine);

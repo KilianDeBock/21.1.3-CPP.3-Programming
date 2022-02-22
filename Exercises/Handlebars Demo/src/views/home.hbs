@@ -1,17 +1,33 @@
 {{> navigation}}
 
-Welcome to Handlebars,
 {{#with data}}
-    {{#with person}}
-        {{firstname}} {{lastname}}!
-    {{/with}}
+    {{#if person.isAGhost}}
+    {{! {{#unless isAGhost}}
+        I cannot see this person!
+    {{else}}
+        Welcome to Handlebars,
+        {{#with person}}
+            {{#hackerBold "Mr."}}{{firstname}} {{lastname}}!{{/hackerBold}}
+        {{/with}}
 
-    <br>
+        <br>
 
-    Mijn interesses zijn:
-    <ul>
-        {{#each interests}}
-            <li>{{name}}</li>
-        {{/each}}
-    </ul>
+        Mijn interesses zijn:
+        <ul>
+            {{#each interests}}
+                <li>{{name}}</li>
+            {{/each}}
+        </ul>
+    {{! {{/unless}}
+    {{/if}}
+
+    {{#bold}}this is Bold{{/bold}}<br>
+    {{#italic}}this is Italic{{/italic}}<br>
+    {{#button}}this is a Button{{/button}}<br>
+    {{#link 'https://lyttle.it'}}this is a Link{{/link}}<br>
+    {{#iff isTrue}}this is True{{else}}Oh, no it wasn't True{{/iff}}<br>
+    {{#iff isFalse}}this is True{{else}}Oh, no it wasn't True{{/iff}}<br>
+    {{#iff isTrue}}this is False{{else}}Oh, no it wasn't False{{/iff}}<br>
+    {{#iff isFalse}}this is False{{else}}Oh, no it wasn't False{{/iff}}<br>
+    {{#eache numbers}}this is repeating itself, we are at number (array) {{number}}!<br>{{/eache}}
 {{/with}}
