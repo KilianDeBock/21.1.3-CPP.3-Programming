@@ -6,37 +6,37 @@
     },
     cacheElements() {
       // this.$ = document.querySelectorAll('selector');
-      this.$todoaddInput = document.querySelector('.todo-add input');
+      this.$todoaddInput = document.querySelector(".todo-add input");
     },
     generateUI() {
       const randomTodos = [
-          'Make Bed',
-          'Pick up clutter around the house',
-          'Clean what dishes are in the sink after breakfast',
-          'Spend 30 minutes in the garden or flowerbed',
-          'Walk the dog',
-          'Hit the gym',
-          'Pay bills',
-          'Meet George',
-          'Buy eggs',
-          'Make food',
-          'Read a book',
-          'Organize office',
-          'The Task You Will Forget',
-          'The Things You Absolutely Must Do Today',
-          'The New Habit',
-          'The Step Towards Your Goal',
-          'The Menial Task',
-          'The Promise You Made to Someone',
-          'The Task You Delegated',
-          'The Task You Need to Do For Yourself',
-          'The Task with a Deadline',
-          'The Answer You Are Waiting For'
+          "Make bed?",
+          "Pick up clutter around the house?",
+          "Clean what dishes are in the sink after breakfast?",
+          "Spend 30 minutes in the garden or flowerbed?",
+          "Walk the dog?",
+          "Hit the gym?",
+          "Pay bills?",
+          "Meet george?",
+          "Buy eggs?",
+          "Make food?",
+          "Read a book?",
+          "Organize office?",
+          "The task you will forget?",
+          "The things you absolutely must do today?",
+          "The new habit?",
+          "The step towards your goal?",
+          "The menial task?",
+          "The promise you made to someone?",
+          "The task you delegated?",
+          "The task you need to do for yourself?",
+          "The task with a deadline?",
+          "The answer you are waiting for?",
         ],
         randomTodo = Math.floor(Math.random() * randomTodos.length);
 
       this.$todoaddInput.placeholder = randomTodos[randomTodo];
-    }
+    },
   };
   // Start initialization.
   app.initialize();

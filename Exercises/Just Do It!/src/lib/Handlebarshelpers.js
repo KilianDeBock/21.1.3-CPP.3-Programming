@@ -2,6 +2,8 @@
  * A module with some custom block helpers
  */
 
+import { capitalize } from "./utils.js";
+
 export default {
   hackerBold: function (context, options) {
     const hackyStuff = {
@@ -35,7 +37,7 @@ export default {
     return ret;
   },
   button: function (type, use, options) {
-    const validUse = ["first", "seccond", "third"];
+    const validUse = ["first", "second", "third"];
     const validTypes = ["submit", "button", "reset"];
 
     // Validate incoming parameters
@@ -50,16 +52,13 @@ export default {
           ${options.fn(this)}
         </button>`;
   },
-  e: function (type, use, options) {
-    const validUse = ["first", "seccond", "third"];
-    const validTypes = ["submit", "button", "reset"];
+  actionButton: function (type, options) {
+    const validTypes = ["complete", "edit", "delete"];
+    const renderedText = options.fn(this) || capitalize(type);
 
     // Validate incoming parameters
-    if (validTypes.includes(type) && validUse.includes(use)) {
-      return `
-        <button class="${use}" type="${type}">
-          ${options.fn(this)}
-        </button>`;
+    if (validTypes.includes(type)) {
+      return `<button data-action="${type}" class="actionItem ${type}Item">${renderedText}</button>`;
     }
     return `
         <button class="primary" type="button">

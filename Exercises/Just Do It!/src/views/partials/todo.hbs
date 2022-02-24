@@ -6,12 +6,7 @@
     </form>
     <ul class="tasks">
         {{#each tasks}}
-            <li class="task-item override" data-id="theRealIdHere">
-                <button data-action="complete" class="actionItem completeItem">Complete</button>
-                <p class="task">{{task}}</p>
-                <button data-action="edit" class="actionItem editItem">Edit</button>
-                <button data-action="delete" class="actionItem deleteItem">Delete</button>
-            </li>
+            {{> task}}
         {{/each}}
     </ul>
 </section>
@@ -19,10 +14,7 @@
     <h2>Things you've completed!</h2>
     <ul class="tasks">
         {{#each completeTasks}}
-            <li class="task-item" data-id="theRealIdHere">
-                <p class="task">{{task}}</p>
-                <button data-action="delete" class="actionItem deleteItem">Delete</button>
-            </li>
+            {{> completedTask}}
         {{/each}}
     </ul>
 </section>
