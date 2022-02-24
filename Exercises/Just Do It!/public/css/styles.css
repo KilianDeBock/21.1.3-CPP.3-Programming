@@ -229,7 +229,7 @@ main > * {
 
 .actionItem {
     position: absolute;
-    transition: padding .2s ease-in-out, margin .2s ease-in-out;
+    transition: padding .2s ease-in-out, margin .2s ease-in-out, opacity .2s ease-in-out;
     border-radius: 50%;
     background-position: center;
     background-repeat: no-repeat;
@@ -237,11 +237,13 @@ main > * {
     font-size: 0;
     padding: 0;
     margin: 1rem;
+    opacity: 0;
 }
 
 .task-item:hover .actionItem {
     padding: 1rem;
     margin: 0;
+    opacity: 1;
 }
 
 .completeItem {

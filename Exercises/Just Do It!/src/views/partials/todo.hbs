@@ -1,0 +1,28 @@
+<section class="todo">
+    <h2><label for="todo-add-input">We've got things to do!</label></h2>
+    <form class="todo-add" action="POST">
+        <input id="todo-add-input" type="text" maxlength="50" placeholder="Make food">
+        <button>Send</button>
+    </form>
+    <ul class="tasks">
+        {{#each tasks}}
+            <li class="task-item override" data-id="theRealIdHere">
+                <button data-action="complete" class="actionItem completeItem">Complete</button>
+                <p class="task">{{task}}</p>
+                <button data-action="edit" class="actionItem editItem">Edit</button>
+                <button data-action="delete" class="actionItem deleteItem">Delete</button>
+            </li>
+        {{/each}}
+    </ul>
+</section>
+<section class="complete">
+    <h2>Things you've completed!</h2>
+    <ul class="tasks">
+        {{#each completeTasks}}
+            <li class="task-item" data-id="theRealIdHere">
+                <p class="task">{{task}}</p>
+                <button data-action="delete" class="actionItem deleteItem">Delete</button>
+            </li>
+        {{/each}}
+    </ul>
+</section>

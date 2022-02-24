@@ -50,4 +50,20 @@ export default {
           ${options.fn(this)}
         </button>`;
   },
+  e: function (type, use, options) {
+    const validUse = ["first", "seccond", "third"];
+    const validTypes = ["submit", "button", "reset"];
+
+    // Validate incoming parameters
+    if (validTypes.includes(type) && validUse.includes(use)) {
+      return `
+        <button class="${use}" type="${type}">
+          ${options.fn(this)}
+        </button>`;
+    }
+    return `
+        <button class="primary" type="button">
+          ${options.fn(this)}
+        </button>`;
+  },
 };
