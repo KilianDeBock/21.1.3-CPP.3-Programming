@@ -180,9 +180,11 @@ ul,
 var,
 video {
     border: 0;
+    color: inherit;
     font: inherit;
     font-size: 100%;
     margin: 0;
     padding: 0;
+    text-decoration: inherit;
     vertical-align: baseline;
 }
