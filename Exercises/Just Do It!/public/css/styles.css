@@ -2,12 +2,12 @@
 @import url("defaults.css");
 
 :root {
+    --color-primary-dark: #161518;
+    --color-primary: #1F2023;
+    --color-secondary: #313234;
+    --color-text: #C5C6C6;
     --color-white-100: #fff;
-    --color-white-400: #C5C6C6;
     --color-white-420: rgba(197, 198, 198, 0.2);
-    --color-dark-800: #161518;
-    --color-dark-500: #1F2023;
-    --color-dark-200: #313234;
     --color-green-300: #5AB946;
     --color-green-500: #479337;
     --color-green-800: #37722b;
@@ -24,12 +24,13 @@
 
 body {
     font-family: Helvetica, Arial, sans-serif;
-    background-color: var(--color-dark-800);
-    color: var(--color-white-400);
+    background-color: var(--color-primary-dark);
+    color: var(--color-text);
 }
 
-a {
-    color: var(--color-white-400);
+a,
+.a {
+    color: var(--color-text);
     text-decoration: none;
     transition: background .35s ease-in-out;
     background-image: linear-gradient(to right, var(--color-white-420) 0, var(--color-white-420) 100%);
@@ -38,7 +39,8 @@ a {
     background-size: 0 50%;
 }
 
-a:hover {
+a:hover,
+.a:hover {
     background-size: 100% 50%;
 }
 
@@ -47,9 +49,9 @@ a:hover {
 
 header,
 .categories {
-    border: 1px solid var(--color-dark-200);
+    border: 1px solid var(--color-secondary);
     border-top: none;
-    background-color: var(--color-dark-500)
+    background-color: var(--color-primary)
 }
 
 header {
@@ -74,7 +76,7 @@ header > * {
 }
 
 
-@media (min-width: 30rem) {
+@media (min-width: 40rem) {
     .logo {
         width: auto;
         flex-wrap: nowrap;
@@ -94,9 +96,13 @@ header > * {
     font-size: 1.2rem;
     width: 100%;
     text-align: center;
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-@media (min-width: 30rem) {
+@media (min-width: 40rem) {
     .main-nav {
         width: auto;
         margin: 0 .5rem 0 auto;
@@ -121,15 +127,16 @@ main > * {
         padding-left: 2rem;
         margin-top: 1rem;
         width: 20rem;
-        border: none
+        border: none;
+        border-right: 1px solid var(--color-secondary);
     }
 
     .categories_background {
-        border: 1px solid var(--color-dark-200);
+        border: 1px solid var(--color-secondary);
         z-index: -1;
         top: 0;
         left: 0;
-        background-color: var(--color-dark-500);
+        background-color: var(--color-primary);
         position: absolute;
         width: 20rem;
         height: 100vh;
@@ -182,14 +189,14 @@ main > * {
     width: 100%;
     padding: 1rem 2rem;
     min-height: 3rem;
-    background-color: var(--color-dark-200);
+    background-color: var(--color-secondary);
     border-radius: 3rem;
 }
 
 .todo-add {
     position: relative;
     display: flex;
-    background-color: var(--color-dark-500);
+    background-color: var(--color-primary);
     margin-bottom: 1rem;
 }
 
