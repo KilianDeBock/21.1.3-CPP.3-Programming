@@ -2,11 +2,33 @@
   const app = {
     initialize() {
       this.cacheElements();
+      this.registerListeners();
       this.generateUI();
     },
     cacheElements() {
       // this.$ = document.querySelectorAll('selector');
       this.$todoaddInput = document.querySelector('.todo-add input');
+      this.$tagForms = document.querySelectorAll('.tag--add__form');
+    },
+    registerListeners() {
+      this.$tagForms.forEach((tagForm) => {
+        tagForm.addEventListener('submit', (ev) => {
+          ev.preventDefault();
+          const input = ev.target.querySelector('.tag--add__input');
+          console.log('Adding', input.value);
+          input.value = '';
+        });
+
+        tagForm.addEventListener('keydown', (ev) => {
+          if (ev.keyCode === 32) {
+            console.log('Adding', ev.target.value);
+            ev.target.value = '';
+            setTimeout(() => ev.target.value = '', 50);
+          }
+        });
+
+
+      });
     },
     generateUI() {
       const randomTodos = [

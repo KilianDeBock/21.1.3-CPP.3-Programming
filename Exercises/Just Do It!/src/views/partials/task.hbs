@@ -1,6 +1,7 @@
-<li class="task-item override" data-id="theRealIdHere">
+<li class="task-item" data-id="theRealIdHere">
     {{#actionButton 'complete'}}{{/actionButton}}
     <p class="task">{{task}}</p>
     {{#actionButton 'edit'}}{{/actionButton}}
     {{#actionButton 'delete'}}{{/actionButton}}
+    {{> tags}}
 </li>

@@ -19,13 +19,29 @@ export const home = (req, res) => {
       },
     ],
     tasks: [
-      {task: 'Print new documentation papers.'},
-      {task: 'Make new function in Discord bot.'},
+      {
+        task: 'Print new documentation papers.',
+        tags: [
+          'Printing',
+          'Papers',
+          'Work',
+          'TeamViewer'
+        ]
+      },
+      {
+        task: 'Make new function in Discord bot.',
+        tags: [
+          'Coding'
+        ]
+      },
     ],
     completeTasks: [
-      {task: 'Make meme your project manager!'},
-      {task: 'Make meme your project manager!'},
-      {task: 'Make meme your project manager!'},
+      {
+        task: 'Make meme your project manager!',
+        tags: [
+          'Work',
+        ]
+      },
     ],
   };
   res.render('home', {todoData});

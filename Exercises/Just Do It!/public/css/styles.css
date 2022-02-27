@@ -264,6 +264,10 @@ main > * {
     padding-top: 1rem;
 }
 
+.tasks .task-item {
+    padding-bottom: 1.3rem;
+}
+
 .actionItem {
     position: absolute;
     transition: padding .2s ease-in-out, margin .2s ease-in-out, opacity .2s ease-in-out;
@@ -324,4 +328,34 @@ main > * {
 
 .editItem:active {
     background-color: var(--color-blue-800);
+}
+
+.tags {
+    position: absolute;
+    bottom: 0;
+    left: 2rem;
+    display: flex;
+    gap: .5rem;
+    font-size: .8rem;
+}
+
+.tag {
+    padding: .5rem .8rem;
+    background-color: var(--color-secondary-background);
+    border-radius: 1rem;
+}
+
+.tag--add__button {
+    margin-left: .2rem;
+}
+
+.tag--add__input {
+    width: 0;
+    transition: width .2s ease-in-out, margin-left .2s ease-in-out;
+}
+
+.tag--add:hover .tag--add__input,
+.tag--add__input:focus {
+    margin-left: .3rem;
+    width: 8.5rem;
 }
