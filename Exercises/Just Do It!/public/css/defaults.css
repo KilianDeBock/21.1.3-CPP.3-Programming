@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Sacramento&display=swap");
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -15,7 +17,8 @@ h1 {
 }
 
 h2 {
-    font-size: 2.441rem
+    font-size: 3.441rem;
+    font-family: "Sacramento", cursive;
 }
 
 h3 {

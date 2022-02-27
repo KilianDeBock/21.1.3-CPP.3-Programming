@@ -2,9 +2,12 @@
 @import url("defaults.css");
 
 :root {
-    --color-primary-dark: #161518;
-    --color-primary: #1F2023;
-    --color-secondary: #313234;
+    --color-primary: #3f796b;
+    --color-primary-dark: #1f2c4d;
+    --color-secondary: #ffffff;
+    --color-secondary-background: rgba(255, 255, 255, 0.2);
+    --color-tertiary: #000000;
+    --color-tertiary-background: rgba(0, 0, 0, 0.2);
     --color-text: #C5C6C6;
     --color-white-100: #fff;
     --color-white-420: rgba(197, 198, 198, 0.2);
@@ -24,8 +27,9 @@
 
 body {
     font-family: Helvetica, Arial, sans-serif;
-    background-color: var(--color-primary-dark);
+    background: linear-gradient(-45deg, var(--color-primary-dark), var(--color-primary));
     color: var(--color-text);
+    transition: --color-primary 3s, --color-primary-dark 3s;
 }
 
 a,
@@ -47,18 +51,16 @@ a:hover,
 
 /* Styling */
 
-header,
-.categories {
-    border: 1px solid var(--color-secondary);
-    border-top: none;
-    background-color: var(--color-primary)
-}
-
 header {
+    position: fixed;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 1rem
+    z-index: 1;
+    width: 100%;
+    gap: 1rem;
+    border-bottom: 1px solid var(--color-secondary);
+    background-color: var(--color-tertiary-background);
 }
 
 header > * {
@@ -110,6 +112,7 @@ header > * {
 }
 
 main {
+    padding-top: 5rem;
     display: flex;
     flex-wrap: wrap;
 }
@@ -119,27 +122,25 @@ main > * {
     padding: 2rem .5rem;
 }
 
+.categories {
+    background: var(--color-tertiary-background);
+    border-bottom: 1px solid var(--color-secondary);
+}
+
 @media (min-width: 50rem) {
     .categories {
-        overflow: hidden;
-        position: sticky;
-        top: -5rem;
-        padding-left: 2rem;
-        margin-top: 1rem;
-        width: 20rem;
-        border: none;
+        border-left: none;
         border-right: 1px solid var(--color-secondary);
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        padding: 8rem 0 0 2rem;
+        width: 20rem;
+        height: 100vh;
     }
 
     .categories_background {
-        border: 1px solid var(--color-secondary);
-        z-index: -1;
-        top: 0;
-        left: 0;
-        background-color: var(--color-primary);
-        position: absolute;
         width: 20rem;
-        height: 100vh;
     }
 }
 
@@ -189,14 +190,14 @@ main > * {
     width: 100%;
     padding: 1rem 2rem;
     min-height: 3rem;
-    background-color: var(--color-secondary);
+    background-color: var(--color-tertiary-background);
     border-radius: 3rem;
 }
 
 .todo-add {
     position: relative;
     display: flex;
-    background-color: var(--color-primary);
+    background-color: var(--color-secondary-background);
     margin-bottom: 1rem;
 }
 

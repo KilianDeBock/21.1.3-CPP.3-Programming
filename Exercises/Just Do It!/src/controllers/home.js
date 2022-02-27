@@ -6,23 +6,27 @@ export const home = (req, res) => {
   const todoData = {
     categories: [
       {
-        name: "Default",
+        name: 'Default',
         current: true,
       },
       {
-        name: "Household",
+        name: 'Household',
+        current: false,
+      },
+      {
+        name: 'Work',
         current: false,
       },
     ],
     tasks: [
-      { task: "Print new documentation papers." },
-      { task: "Make new function in Discord bot." },
+      {task: 'Print new documentation papers.'},
+      {task: 'Make new function in Discord bot.'},
     ],
     completeTasks: [
-      { task: "Make meme your project manager!" },
-      { task: "Make meme your project manager!" },
-      { task: "Make meme your project manager!" },
+      {task: 'Make meme your project manager!'},
+      {task: 'Make meme your project manager!'},
+      {task: 'Make meme your project manager!'},
     ],
   };
-  res.render("home", { todoData });
+  res.render('home', {todoData});
 };
