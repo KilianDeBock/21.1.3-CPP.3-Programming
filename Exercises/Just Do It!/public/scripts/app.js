@@ -1,49 +1,43 @@
-import {themes} from './themes.js';
-import {getItem, saveItem} from './storage.js';
-
 (() => {
   const app = {
-    init() {
+    initialize() {
       this.cacheElements();
-      this.addEventListeners();
-      this.cacheData();
-      this.changeTheme(this.selectedTheme);
+      this.generateUI();
     },
     cacheElements() {
-      this.$themeButton = document.querySelector('#themeButton');
+      // this.$ = document.querySelectorAll('selector');
+      this.$todoaddInput = document.querySelector('.todo-add input');
     },
-    cacheData() {
-      this.root = document.documentElement;
-      this.currentTheme = Number(getItem('theme')) ?? 0;
-      this.selectedTheme = themes[this.currentTheme];
-      this.themeClickCount = 0;
-    },
-    addEventListeners() {
-      this.$themeButton.addEventListener('click', (ev) => {
-        ++this.themeClickCount;
-        this.$themeButton.innerText = `How about faster?!`;
-        if (this.themeClickCount > 1) return;
-        setTimeout(() => {
-          const nextNormalNr = this.currentTheme > 0 ? 0 : 1;
-          this.currentTheme = this.themeClickCount > 1 ? 2 : nextNormalNr;
-          saveItem('theme', this.currentTheme);
-          this.selectedTheme = themes[this.currentTheme];
-          this.themeClickCount = 0;
-          this.changeTheme(this.selectedTheme);
-        }, 200);
-      });
-    },
-    changeTheme(selectedTheme) {
-      const nextNormalTheme = selectedTheme.name === 'Dark' ? 'White' : 'Dark';
-      const nextTheme =
-        selectedTheme.name === '90s'
-          ? 'The 90s are coming for u!'
-          : `Switch to ${nextNormalTheme} theme?`;
-      this.$themeButton.innerText = nextTheme;
-      selectedTheme.colors.forEach((color) => {
-        this.root.style.setProperty(color.name, color.hex);
-      });
+    generateUI() {
+      const randomTodos = [
+          'Make bed?',
+          'Pick up clutter around the house?',
+          'Clean what dishes are in the sink after breakfast?',
+          'Spend 30 minutes in the garden or flowerbed?',
+          'Walk the dog?',
+          'Hit the gym?',
+          'Pay bills?',
+          'Meet george?',
+          'Buy eggs?',
+          'Make food?',
+          'Read a book?',
+          'Organize office?',
+          'The task you will forget?',
+          'The things you absolutely must do today?',
+          'The new habit?',
+          'The step towards your goal?',
+          'The menial task?',
+          'The promise you made to someone?',
+          'The task you delegated?',
+          'The task you need to do for yourself?',
+          'The task with a deadline?',
+          'The answer you are waiting for?',
+        ],
+        randomTodo = Math.floor(Math.random() * randomTodos.length);
+
+      this.$todoaddInput.placeholder = randomTodos[randomTodo];
     },
   };
-  app.init();
+  // Start initialization.
+  app.initialize();
 })();
