@@ -7,6 +7,7 @@ import { home } from "./controllers/home.js";
 import HandlebarsHelpers from "./lib/HandlebarsHelpers.js";
 import bodyParser from "body-parser";
 import { createConnection } from "typeorm";
+import entities from "./models/index.js";
 
 const app = express();
 app.use(express.static("public"));
@@ -37,6 +38,7 @@ app.get("/", home);
 createConnection({
   type: process.env.DATABASE_TYPE,
   database: process.env.DATABASE_NAME,
+  entities,
   synchronize: true,
 }).then(() => {
   app.listen(process.env.PORT, () => {
