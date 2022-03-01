@@ -1,0 +1,12 @@
+{{#with userData}}
+  <h1>Welcome, {{firstname}} {{lastname}}</h1>
+{{/with}}
+
+<div class="interests-container">
+  Your interest are:
+  <ul>
+    {{#each userData.interests}}
+      <li>{{name}}</li>
+    {{/each}}
+  </ul>
+</div>
