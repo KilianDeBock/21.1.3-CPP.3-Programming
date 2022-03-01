@@ -6,24 +6,16 @@ import { getConnection } from "typeorm";
 export const home = async (req, res) => {
   const navigationItemRepository =
       getConnection().getRepository("NavigationItem"),
-    menuItems = await navigationItemRepository.find();
+    menuItems = await navigationItemRepository.find(),
+    interestRepository = getConnection().getRepository("Interests"),
+    interests = await interestRepository.find();
 
   console.log(menuItems);
 
   const userData = {
     firstname: "Pedro",
     lastname: "Yankin",
-    interests: [
-      {
-        name: "Mathematics",
-      },
-      {
-        name: "Algorithms",
-      },
-      {
-        name: "Computer Science",
-      },
-    ],
+    interests: interests,
   };
 
   res.render("home", {

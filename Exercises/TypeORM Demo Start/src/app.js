@@ -8,6 +8,12 @@ import HandlebarsHelpers from "./lib/HandlebarsHelpers.js";
 import bodyParser from "body-parser";
 import { createConnection } from "typeorm";
 import entities from "./models/index.js";
+import {
+  deleteInterest,
+  getInterest,
+  postInterest,
+  updateInterest,
+} from "./controllers/api/interest.js";
 
 const app = express();
 app.use(express.static("public"));
@@ -34,6 +40,15 @@ app.set("views", path.join(SOURCE_PATH, "views"));
  * App Routing
  */
 app.get("/", home);
+
+/**
+ * API Routing
+ */
+
+app.get("/api/interest", getInterest);
+app.post("/api/interest", postInterest);
+app.delete("/api/interest/:id", deleteInterest);
+app.put("/api/interest", updateInterest);
 
 createConnection({
   type: process.env.DATABASE_TYPE,
