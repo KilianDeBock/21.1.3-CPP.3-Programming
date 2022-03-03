@@ -1,7 +1,3 @@
-/**
- * Our navigationItem
- */
-
 import typeorm from "typeorm";
 
 const { EntitySchema } = typeorm;
@@ -15,7 +11,10 @@ export default new EntitySchema({
       type: "int",
       generated: true,
     },
-    name: {
+    firstname: {
+      type: "varchar",
+    },
+    lastname: {
       type: "varchar",
     },
   },

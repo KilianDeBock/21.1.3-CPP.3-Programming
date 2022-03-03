@@ -3,10 +3,10 @@
 {{/with}}
 
 <div class="add-interest">
-    <form action="/postInterest" method="post">
-        <input type="hidden" name="{{userData.id}}">
-        <input placeholder="e.g. books" type="text" name="name">
-        <button type="submit">Add intrest</button>
+    <form method="post" action="/postInterest">
+        <input type="hidden" name="userId" value="{{userData.id}}">
+        <input type="text" name="name" placeholder="e.g. books">
+        <button type="submit">Add interest</button>
     </form>
 </div>
 

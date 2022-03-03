@@ -14,6 +14,12 @@ import {
   postObject,
   updateObject,
 } from "./controllers/api/object.js";
+import {
+  deleteUser,
+  getUser,
+  postUser,
+  updateUser,
+} from "./controllers/api/user.js";
 
 const app = express();
 app.use(express.static("public"));
@@ -40,18 +46,15 @@ app.set("views", path.join(SOURCE_PATH, "views"));
  * App Routing
  */
 app.get("/", home);
-app.get("/postInterest", homePostInterest);
+app.post("/postInterest", homePostInterest);
 
 /**
  * API Routing
  */
-
-app.get("/api/user", (req, res, next) => getObject("User", req, res, next));
-app.post("/api/user", (req, res, next) => postObject("User", req, res, next));
-app.delete("/api/user/:id", (req, res, next) =>
-  deleteObject("User", req, res, next)
-);
-app.put("/api/user", (req, res, next) => updateObject("User", req, res, next));
+app.get("/api/user", getUser);
+app.post("/api/user", postUser);
+app.delete("/api/user/:id", deleteUser);
+app.put("/api/user", updateUser);
 
 app.get("/api/interest", (req, res, next) =>
   getObject("Interest", req, res, next)
@@ -74,7 +77,7 @@ createConnection({
 }).then(() => {
   app.listen(process.env.PORT, () => {
     console.log(
-      `Application is runninig on http://localhost:${process.env.PORT}/.`
+      `Application is running on http://localhost:${process.env.PORT}/.`
     );
   });
 });

@@ -1,14 +1,10 @@
-/**
- * Our navigationItem
- */
-
 import typeorm from "typeorm";
 
 const { EntitySchema } = typeorm;
 
 export default new EntitySchema({
   name: "Interest",
-  tableName: "Interests",
+  tableName: "interests",
   columns: {
     id: {
       primary: true,

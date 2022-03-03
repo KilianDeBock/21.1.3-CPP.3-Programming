@@ -1,26 +1,58 @@
 /**
- * API -
+ * API - Non-specific object
  */
+
 import { getConnection } from "typeorm";
+
+const checkUnwantedProperties = (req) => {
+  const validProperties = ["id", "firstname", "lastname"],
+    unwantedProperties = Object.getOwnPropertyNames(req.body).filter(
+      (prop) => !validProperties.includes(prop)
+    );
+
+  if (unwantedProperties.length > 0)
+    throw new Error(
+      `You requested unwanted properties: ${unwantedProperties.join(", ")}`
+    );
+};
 
 export const postUser = async (req, res, next) => {
   try {
-    const userRepository = getConnection().getRepository("User");
+    if (!req.body.firstname) throw new Error("Enter a name!");
 
-    const insertedUser = await userRepository.save({
+    checkUnwantedProperties(req);
+
+    const repository = getConnection().getRepository("User");
+    const interestRepository = getConnection().getRepository("Interest");
+
+    const object = await repository.findOne({
+      where: { firstname: req.body.firstname },
+    });
+
+    if (object) {
+      return res.status(200).json({
+        status: `Posted user with id: ${object.id}.`,
+      });
+    }
+
+    const insertedEntityName = await repository.save({
       ...req.body,
+      interests: await interestRepository.find(),
       user_meta: {
         address: "Mariakerke",
         zipCode: "9030",
-        city: "Ghent",
+        city: "Gent",
       },
+      photos: [
+        { filename: "photo1.png" },
+        { filename: "photo2.png" },
+        { filename: "photo3.png" },
+      ],
     });
 
-    console.log(insertedUser);
-
-    res.status(200).json({
-      status: `Posted user with id: ${insertedUser.id}`,
-      data: insertedUser,
+    res.status(201).json({
+      status: `Posted user with id: ${insertedEntityName.id}.`,
+      data: insertedEntityName,
     });
   } catch (e) {
     next(e.message);
@@ -29,10 +61,13 @@ export const postUser = async (req, res, next) => {
 
 export const getUser = async (req, res, next) => {
   try {
-    const userRepository = getConnection().getRepository("Users"),
-      users = await userRepository.find();
+    const repository = getConnection().getRepository("User");
 
-    res.status(200).json(users);
+    res.status(200).json(
+      await repository.find({
+        relations: ["user_meta", "interests", "photos"],
+      })
+    );
   } catch (e) {
     next(e.message);
   }
@@ -42,17 +77,17 @@ export const deleteUser = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    if (!id) throw new Error("Please specify an id to remove");
+    if (!id) throw new Error("Please specify an id to remove.");
 
-    const userRepository = getConnection().getRepository("User");
+    const repository = getConnection().getRepository("User");
+    const object = await repository.findOne({ id });
 
-    const user = await userRepository.findOne({ id });
+    if (!object)
+      throw new Error(`The given user with id ${id} does not exist.`);
 
-    if (!user) throw new Error(`The user with id ${id} does not exist.`);
+    await repository.remove({ id });
 
-    await userRepository.remove({ id });
-
-    res.status(200).json({ status: `Deleted user with id: ${id}` });
+    res.status(202).json({ status: `Deleted user with id ${id}` });
   } catch (e) {
     next(e.message);
   }
@@ -60,28 +95,28 @@ export const deleteUser = async (req, res, next) => {
 
 export const updateUser = async (req, res, next) => {
   try {
+    checkUnwantedProperties(req);
+
     if (!req.body.id)
       throw new Error(
-        "Please provide a id for the intrest you want to update."
+        "Please provide a id for the interest you want to update."
       );
 
-    const userRepository = getConnection().getRepository("User");
+    const repository = getConnection().getRepository("User");
 
-    const user = await userRepository.findOne({
+    const object = await repository.findOne({
       where: { id: req.body.id },
     });
 
-    if (!user) throw new Error("The given user does not exist.");
+    if (!object) throw new Error(`The given user does not exist.`);
 
-    const updatedUser = {
-      ...user,
-      id: req.id,
-      name: req.name,
-    };
+    const updatedEntityName = { ..."User", ...req.body };
 
-    await userRepository.save(updatedUser);
+    await repository.save(updatedEntityName);
 
-    res.status(200).json({ status: "Updated user.", data: updatedUser });
+    res.status(202).json({
+      status: `Updated user with id: ${req.body.id}`,
+    });
   } catch (e) {
     next(e.message);
   }
