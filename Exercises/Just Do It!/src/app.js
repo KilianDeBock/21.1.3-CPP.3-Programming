@@ -9,10 +9,10 @@ import bodyParser from "body-parser";
 import { createConnection } from "typeorm";
 import entities from "./models/index.js";
 import {
-  deleteTask,
-  getTask,
-  postTask,
-  updateTask,
+  deleteObject,
+  getObject,
+  postObject,
+  updateObject,
 } from "./controllers/api/object.js";
 
 const app = express(),
@@ -44,12 +44,12 @@ app.set("views", path.join(SOURCE_PATH, "views"));
 
 app.get("/", home);
 
-app.get("/api/task", (req, res, next) => getTask("Task", req, res, next));
-app.post("/api/task", (req, res, next) => postTask("Task", req, res, next));
+app.get("/api/task", (req, res, next) => getObject("Task", req, res, next));
+app.post("/api/task", (req, res, next) => postObject("Task", req, res, next));
 app.delete("/api/task/:id", (req, res, next) =>
-  deleteTask("Task", req, res, next)
+  deleteObject("Task", req, res, next)
 );
-app.put("/api/task", (req, res, next) => updateTask("Task", req, res, next));
+app.put("/api/task", (req, res, next) => updateObject("Task", req, res, next));
 
 createConnection({
   type: process.env.DATABASE_TYPE,

@@ -1,5 +1,5 @@
 <section class="todo">
-    <h2><label for="todo-add-input">We've got things to do!</label></h2>
+    <h2><label for="todo-add-input">We've got {{tasks.length}} things left to do!</label></h2>
     <form class="todo-add" action="POST">
         <input id="todo-add-input" type="text" maxlength="50" placeholder="Make food">
         <button>Send</button>
@@ -11,7 +11,7 @@
     </ul>
 </section>
 <section class="complete">
-    <h2>Things you've completed!</h2>
+    <h2>You've completed {{completeTasks.length}} task{{#arrayIsLonger completeTasks 1}}s{{/arrayIsLonger}}!</h2>
     <ul class="tasks">
         {{#each completeTasks}}
             {{> completedTask}}

@@ -1,12 +1,20 @@
 {{#with userData}}
-  <h1>Welcome, {{firstname}} {{lastname}}</h1>
+    <h1>Welcome, {{firstname}} {{lastname}}</h1>
 {{/with}}
 
+<div class="add-interest">
+    <form action="/postInterest" method="post">
+        <input type="hidden" name="{{userData.id}}">
+        <input placeholder="e.g. books" type="text" name="name">
+        <button type="submit">Add intrest</button>
+    </form>
+</div>
+
 <div class="interests-container">
-  Your interest are:
-  <ul>
-    {{#each userData.interests}}
-      <li>{{name}}</li>
-    {{/each}}
-  </ul>
+    Your interest are:
+    <ul>
+        {{#each userData.interests}}
+            <li>{{name}}</li>
+        {{/each}}
+    </ul>
 </div>

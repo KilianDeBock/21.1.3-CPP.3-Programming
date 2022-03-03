@@ -4,12 +4,12 @@
             <li class="tag">{{this}}</li>
         {{/each}}
     {{/if}}
-    {{#notLonger tags 4}}
+    {{#arrayIsShorter tags 5}}
         <li class="tag tag--add">
             <form class="tag--add__form">
                 <button class="tag--add__button">+</button>
                 <input class="tag--add__input" placeholder="Add a tag (max 1 word)" maxlength="20">
             </form>
         </li>
-    {{/notLonger}}
+    {{/arrayIsShorter}}
 </ul>

@@ -8,6 +8,7 @@ export const postObject = async (entityName, req, res, next) => {
     if (!req.body.name) throw new Error("Please provide a name.");
 
     const repository = getConnection().getRepository(entityName);
+    const repositoryInterests = getConnection().getRepository("Interest");
 
     const item = await repository.findOne({
       where: { name: req.body.name },
@@ -20,7 +21,20 @@ export const postObject = async (entityName, req, res, next) => {
       });
     }
 
-    const insertedItem = await repository.save(req.body);
+    const insertedItem = await repository.save({
+      ...req.body,
+      interests: await repositoryInterests.find(),
+      user_meta: {
+        address: "Mariakerke",
+        zipCode: "9030",
+        city: "Ghent",
+      },
+      photos: [
+        { filename: "Photo 1" },
+        { filename: "Photo 2" },
+        { filename: "Photo 3" },
+      ],
+    });
 
     res.status(201).json({
       status: `Posted item with id: ${insertedItem.id}`,
@@ -34,7 +48,7 @@ export const postObject = async (entityName, req, res, next) => {
 export const getObject = async (entityName, req, res, next) => {
   try {
     const repository = getConnection().getRepository(entityName),
-      item = await repository.find();
+      item = await repository.find({ relations: ["user_meta", "interests"] });
 
     res.status(200).json(item);
   } catch (e) {
