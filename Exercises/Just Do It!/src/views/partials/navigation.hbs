@@ -3,7 +3,7 @@
         <h3>Categories</h3>
         <ul class="topics">
             {{#each categories}}
-                <li class="topic{{#if current}} active{{/if}}">
+                <li class="topic{{#if selected}} active{{/if}}">
                     <button>{{name}}</button>
                 </li>
             {{/each}}

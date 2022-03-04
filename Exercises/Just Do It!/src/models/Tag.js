@@ -11,19 +11,20 @@ export default new EntitySchema({
       type: 'int',
       generated: true,
     },
-    task: {
-      type: 'int',
-    },
     name: {
       type: 'varchar',
     },
+    order: {
+      type: 'int',
+      default: 0
+    }
   },
   relations: {
-    task: {
+    tasks: {
       target: 'Task',
       type: 'many-to-one',
       joinColumn: true,
-      inverseSide: 'tasks',
+      inverseSide: 'tags',
     },
   },
 });

@@ -11,25 +11,22 @@ export default new EntitySchema({
       type: 'int',
       generated: true,
     },
-    url: {
-      type: 'varchar',
-    },
-    text: {
+    name: {
       type: 'varchar',
     },
   },
   relations: {
-    user: {
+    users: {
       target: 'User',
       type: 'many-to-one',
       joinColumn: true,
-      inverseSide: 'users',
+      inverseSide: 'categories',
     },
-    task: {
+    tasks: {
       target: 'Task',
       type: 'one-to-many',
       cascade: true,
-      inverseSide: 'task',
+      inverseSide: 'categories',
     },
   },
 });

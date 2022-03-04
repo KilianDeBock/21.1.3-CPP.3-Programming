@@ -23,7 +23,7 @@ export default new EntitySchema({
       target: 'Category',
       type: 'one-to-many',
       cascade: true,
-      inverseSide: 'categories',
+      inverseSide: 'users',
     },
   },
 });

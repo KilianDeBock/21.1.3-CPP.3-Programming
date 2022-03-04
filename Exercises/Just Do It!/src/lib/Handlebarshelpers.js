@@ -2,13 +2,13 @@
  * A module with some custom block helpers
  */
 
-import { capitalize } from "./utils.js";
+import {capitalize} from './utils.js';
 
 export default {
   hackerBold: function (context, options) {
     const hackyStuff = {
       ...options.data.person,
-      firstname: "Hacker",
+      firstname: 'Hacker',
       lastname: options.data.person.firstname,
     };
 
@@ -28,7 +28,7 @@ export default {
     else return options.inverse(this);
   },
   eache: function (context, options) {
-    var ret = "";
+    var ret = '';
 
     for (var i = 0, j = context.length; i < j; i++) {
       ret = ret + options.fn(context[i]);
@@ -37,8 +37,8 @@ export default {
     return ret;
   },
   button: function (type, use, options) {
-    const validUse = ["first", "second", "third"];
-    const validTypes = ["submit", "button", "reset"];
+    const validUse = ['first', 'second', 'third'];
+    const validTypes = ['submit', 'button', 'reset'];
 
     // Validate incoming parameters
     if (validTypes.includes(type) && validUse.includes(use)) {
@@ -53,7 +53,7 @@ export default {
         </button>`;
   },
   actionButton: function (type, options) {
-    const validTypes = ["complete", "edit", "delete"];
+    const validTypes = ['complete', 'edit', 'delete'];
     const renderedText = options.fn(this) || capitalize(type);
 
     // Validate incoming parameters
