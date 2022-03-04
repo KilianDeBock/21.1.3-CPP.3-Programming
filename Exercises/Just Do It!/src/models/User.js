@@ -3,33 +3,27 @@ import typeorm from 'typeorm';
 const {EntitySchema} = typeorm;
 
 export default new EntitySchema({
-  name: 'Category',
-  tableName: 'categories',
+  name: 'User',
+  tableName: 'users',
   columns: {
     id: {
       primary: true,
       type: 'int',
       generated: true,
     },
-    url: {
+    firstname: {
       type: 'varchar',
     },
-    text: {
+    lastname: {
       type: 'varchar',
     },
   },
   relations: {
-    user: {
-      target: 'User',
-      type: 'many-to-one',
-      joinColumn: true,
-      inverseSide: 'users',
-    },
-    task: {
-      target: 'Task',
+    categories: {
+      target: 'Category',
       type: 'one-to-many',
       cascade: true,
-      inverseSide: 'task',
+      inverseSide: 'categories',
     },
   },
 });

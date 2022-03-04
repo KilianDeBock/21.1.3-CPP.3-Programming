@@ -5,38 +5,33 @@
 import { getConnection } from "typeorm";
 
 const checkUnwantedProperties = (req) => {
-  // Define unwanted properties
-  const validProperties = ["id", "name", "done"],
-    // Filter out unwanted properties
+  const validProperties = ["id", "firstname", "lastname"],
     unwantedProperties = Object.getOwnPropertyNames(req.body).filter(
       (prop) => !validProperties.includes(prop)
     );
 
-  // If any unwanted properties exist trow error
   if (unwantedProperties.length > 0)
     throw new Error(
       `You requested unwanted properties: ${unwantedProperties.join(", ")}`
     );
 };
 
-export const postObject = async (entityName, req, res, next) => {
+export const postUser = async (req, res, next) => {
   try {
-    const entity = entityName.toLowerCase();
-
-    if (!req.body.name) throw new Error("Enter a name!");
+    if (!req.body.firstname) throw new Error("Enter a name!");
 
     checkUnwantedProperties(req);
 
-    const repository = getConnection().getRepository(entityName);
+    const repository = getConnection().getRepository("User");
     const interestRepository = getConnection().getRepository("Interest");
 
     const object = await repository.findOne({
-      where: { name: req.body.name },
+      where: { firstname: req.body.firstname },
     });
 
     if (object) {
       return res.status(200).json({
-        status: `Posted ${entity} with id: ${object.id}.`,
+        status: `Posted user with id: ${object.id}.`,
       });
     }
 
@@ -49,14 +44,14 @@ export const postObject = async (entityName, req, res, next) => {
         city: "Gent",
       },
       photos: [
-        { fileName: "photo1.png" },
-        { fileName: "photo2.png" },
-        { fileName: "photo3.png" },
+        { filename: "photo1.png" },
+        { filename: "photo2.png" },
+        { filename: "photo3.png" },
       ],
     });
 
     res.status(201).json({
-      status: `Posted ${entity} with id: ${insertedEntityName.id}.`,
+      status: `Posted user with id: ${insertedEntityName.id}.`,
       data: insertedEntityName,
     });
   } catch (e) {
@@ -64,9 +59,9 @@ export const postObject = async (entityName, req, res, next) => {
   }
 };
 
-export const getObject = async (entityName, req, res, next) => {
+export const getUser = async (req, res, next) => {
   try {
-    const repository = getConnection().getRepository(entityName);
+    const repository = getConnection().getRepository("User");
 
     res.status(200).json(
       await repository.find({
@@ -78,51 +73,49 @@ export const getObject = async (entityName, req, res, next) => {
   }
 };
 
-export const deleteObject = async (entityName, req, res, next) => {
+export const deleteUser = async (req, res, next) => {
   try {
-    const entity = entityName.toLowerCase();
-
     const { id } = req.params;
 
     if (!id) throw new Error("Please specify an id to remove.");
 
-    const repository = getConnection().getRepository(entityName);
+    const repository = getConnection().getRepository("User");
     const object = await repository.findOne({ id });
 
     if (!object)
-      throw new Error(`The given ${entity} with id ${id} does not exist.`);
+      throw new Error(`The given user with id ${id} does not exist.`);
 
     await repository.remove({ id });
 
-    res.status(202).json({ status: `Deleted ${entity} with id ${id}` });
+    res.status(202).json({ status: `Deleted user with id ${id}` });
   } catch (e) {
     next(e.message);
   }
 };
 
-export const updateObject = async (entityName, req, res, next) => {
+export const updateUser = async (req, res, next) => {
   try {
-    const entity = entityName.toLowerCase();
-
     checkUnwantedProperties(req);
 
-    if (!req.body.name)
-      throw new Error(`Provide an id for the ${entity} you want to update`);
+    if (!req.body.id)
+      throw new Error(
+        "Please provide a id for the interest you want to update."
+      );
 
-    const repository = getConnection().getRepository(entityName);
+    const repository = getConnection().getRepository("User");
 
     const object = await repository.findOne({
       where: { id: req.body.id },
     });
 
-    if (!object) throw new Error(`The given ${entity} does not exist.`);
+    if (!object) throw new Error(`The given user does not exist.`);
 
-    const updatedEntityName = { ...entityName, ...req.body };
+    const updatedEntityName = { ..."User", ...req.body };
 
     await repository.save(updatedEntityName);
 
     res.status(202).json({
-      status: `Updated ${entity} with id: ${req.body.id}`,
+      status: `Updated user with id: ${req.body.id}`,
     });
   } catch (e) {
     next(e.message);
