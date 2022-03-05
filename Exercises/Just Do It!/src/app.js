@@ -3,7 +3,7 @@ import 'dotenv/config';
 import * as path from 'path';
 import {create} from 'express-handlebars';
 import {SOURCE_PATH} from './consts.js';
-import {home} from './controllers/home.js';
+import {home, homePostTask} from './controllers/home.js';
 import HandlebarsHelpers from './lib/Handlebarshelpers.js';
 import bodyParser from 'body-parser';
 import {createConnection} from 'typeorm';
@@ -49,6 +49,7 @@ app.set('views', path.join(SOURCE_PATH, 'views'));
  */
 
 app.get('/', home);
+app.post('/postTodo', homePostTask);
 
 app.get('/api/user', getUser);
 app.post('/api/user', postUser);
