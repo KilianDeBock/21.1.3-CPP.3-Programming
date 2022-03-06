@@ -2,9 +2,10 @@
     <h2><label for="todo-add-input">We've got {{tasks.length}} things left to do!</label></h2>
     <form class="todo-add" method="post" action="/postTodo">
         <input id="todo-add-input" name="name" type="text" maxlength="50" placeholder="Make food">
-        <input type="hidden" name="currentCategory" value="{{currentCategoryId}}">
-        <input type="hidden" name="userId" value="{{id}}">
-        <button type="submit">Send</button>
+        <input id="todo-add__category" type="hidden" name="category" value="{{categoryId}}">
+        <input id="todo-add__user" type="hidden" name="user" value="{{userId}}">
+        <button class="todo-add__task" type="submit">Add task</button>
+        <button id="todo-add__category" type="button" class="todo-add__category">Create category</button>
     </form>
 
     <ul class="tasks">

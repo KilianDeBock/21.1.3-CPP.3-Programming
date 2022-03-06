@@ -2,49 +2,88 @@
  * A Home Controller
  */
 
-import {getConnection} from 'typeorm';
+import { getConnection } from "typeorm";
 
 export const home = async (req, res, next) => {
-  const selectedUser = 1;
-  const selectedCategory = 0;
+  // variables of user selection.
+  const userId = 1,
+    categoryId = 1;
+
   try {
-    const repository = getConnection().getRepository('User');
+    // Establish connection with the user database.
+    const repository = getConnection().getRepository("User");
 
-    // const [userData] = await repository.find({
-    //   id: selectedUser,
-    //   relations: ['categories', 'categories.tasks', 'categories.tasks.tags'],
-    // });
-
-    const [{categories}] = await repository.find({
-      id: selectedUser,
-      relations: ['categories'],
+    // Find all categories of the current user.
+    const [{ categories }] = await repository.find({
+      id: userId,
+      relations: ["categories", "categories.tasks", "categories.tasks.tags"],
     });
 
-    categories[selectedCategory].selected = true;
+    // find the active category and add selected to it.
+    categories.find((c) => c.id === categoryId).selected = true;
 
-    const [{categories: categoriesWithTasks}] = await repository.find({
-      id: selectedUser,
-      relations: ['categories', 'categories.tasks', 'categories.tasks.tags'],
-    });
+    // Find all tasks of the current category
+    const categoryTasks = categories.find((c) => c.id === categoryId).tasks,
+      tasks = categoryTasks
+        // Filter out completed tasks
+        .filter((task) => !task.completed)
+        // Sort tags
+        .map((task) => {
+          // sort based on id (default)
+          task.tags.sort((a, b) => a.id - b.id);
+          // sort based on order (if set)
+          task.tags.sort((a, b) => a.order - b.order);
+          // return whole task
+          return task;
+        })
+        // sort tasks on id.
+        .sort((a, b) => a.id - b.id),
+      completeTasks = categoryTasks
+        // Filter on completed tasks
+        .filter((task) => task.completed)
+        // sort tasks on id.
+        .sort((a, b) => a.id - b.id);
 
-    const categoryTasks = categoriesWithTasks[selectedCategory].tasks;
-    const tasksCompleted = categoryTasks.filter(task => !task.completed);
-    const tasks = tasksCompleted.map(task => {
-      task.tags.sort((a, b) => a.order - b.order);
-      return task;
-    });
-    const completeTasks = categoryTasks.filter(task => task.completed);
-
-
+    // Construct data
     const todoData = {
-      id: selectedUser,
-      currentCategoryId: selectedCategory,
+      userId,
+      categoryId,
       categories,
       tasks,
       completeTasks,
     };
 
-    res.render('home', {todoData});
+    // Render page with data
+    res.render("home", { todoData });
+  } catch (e) {
+    next(e.message);
+  }
+};
+
+export const homePostCategory = async (req, res, next) => {
+  try {
+    // validate incoming body
+    if (!req.body.user) throw new Error("Please provide a USER ID");
+    if (!req.body.name) throw new Error("Please provide an name");
+
+    // get the repositories
+    const repository = getConnection().getRepository("Category");
+
+    // Search if user is same as userId
+    const taskExists = await repository.findOne({
+      name: req.body.name,
+      users: req.body.user,
+    });
+
+    if (taskExists) return res.status(200);
+
+    await repository.save({
+      name: req.body.name,
+      users: req.body.user,
+    });
+
+    // Render homepage again
+    res.redirect("/");
   } catch (e) {
     next(e.message);
   }
@@ -53,53 +92,58 @@ export const home = async (req, res, next) => {
 export const homePostTask = async (req, res, next) => {
   try {
     // validate incoming body
-    if (!req.body.userId) throw new Error('Please provide a USER ID');
-    if (!req.body.name) throw new Error('Please provide an interest');
+    if (!req.body.category) throw new Error("Please provide a CATEGORY ID");
+    if (!req.body.name) throw new Error("Please provide an name");
 
     // get the repositories
-    const userRepository = getConnection().getRepository('User');
+    const repository = getConnection().getRepository("Task");
 
     // Search if user is same as userId
-    const user = await userRepository.findOneOrFail({
-      where: {id: parseInt(req.body.userId)},
-      relations: ['categories'],
+    const taskExists = await repository.findOne({
+      name: req.body.name,
+      categories: req.body.category,
     });
 
-    // Search if interest already exists
-    // let task = await userRepository.findOne({
-    //   where: {
-    //     id: req.body.userId,
-    //     categories: {
-    //       id: req.body.currentCategory,
-    //       tasks: {name: req.body.name}
-    //     }
-    //   }
-    // });
+    if (taskExists) return res.status(200);
 
-    // If interest does not exist
-    // if (!task) {
-    const task = await userRepository.save({
-      id: req.body.userId,
-      categories: {
-        id: req.body.currentCategory,
-        tasks: {name: req.body.name}
-      }
+    await repository.save({
+      name: req.body.name,
+      categories: req.body.category,
     });
-    // }
-    const hasInterest =
-      user.interests.filter((interest) => interest.name === req.body.name)
-        .length > 0;
-
-    // If there's no interest
-    if (!hasInterest) {
-      user.interests.push(task);
-      await userRepository.save(user);
-    }
 
     // Render homepage again
-    res.redirect('/');
+    res.redirect("/");
   } catch (e) {
     next(e.message);
   }
 };
 
+export const homePostTag = async (req, res, next) => {
+  try {
+    console.log(req.body);
+    // validate incoming body
+    if (!req.body.task) throw new Error("Please provide a TASK ID");
+    if (!req.body.name) throw new Error("Please provide an name");
+
+    // get the repositories
+    const repository = getConnection().getRepository("Tag");
+
+    // Search if user is same as userId
+    const taskExists = await repository.findOne({
+      name: req.body.name,
+      tasks: req.body.task,
+    });
+
+    if (taskExists) return res.status(200);
+
+    await repository.save({
+      name: req.body.name,
+      tasks: req.body.task,
+    });
+
+    // Render homepage again
+    res.redirect("/");
+  } catch (e) {
+    next(e.message);
+  }
+};

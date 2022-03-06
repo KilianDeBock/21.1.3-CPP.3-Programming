@@ -27,7 +27,6 @@ export const postObject = async (entityName, relations, req, res, next) => {
 
     const newTask = await repository.save({
       name: req.body.name,
-      completed: false,
       categories: req.params.categoryId,
     });
 

@@ -3,7 +3,12 @@ import "dotenv/config";
 import * as path from "path";
 import { create } from "express-handlebars";
 import { SOURCE_PATH } from "./consts.js";
-import { home, homePostTask } from "./controllers/home.js";
+import {
+  home,
+  homePostCategory,
+  homePostTag,
+  homePostTask,
+} from "./controllers/home.js";
 import HandlebarsHelpers from "./lib/Handlebarshelpers.js";
 import bodyParser from "body-parser";
 import { createConnection } from "typeorm";
@@ -49,7 +54,9 @@ app.set("views", path.join(SOURCE_PATH, "views"));
  */
 
 app.get("/", home);
+app.post("/postCategory", homePostCategory);
 app.post("/postTodo", homePostTask);
+app.post("/postTag", homePostTag);
 
 app.post("/api/user/:userId/category/:categoryId/task", (req, res, next) =>
   postObject(

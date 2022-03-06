@@ -6,31 +6,49 @@
       this.generateUI();
     },
     cacheElements() {
-      // this.$ = document.querySelectorAll('selector');
       this.$todoaddInput = document.querySelector(".todo-add input");
+      this.$addCategory = document.querySelector(".todo-add__category");
       this.$tagForms = document.querySelectorAll(".tag--add__form");
       this.$tagAddLis = document.querySelectorAll(".tag--add");
     },
     registerListeners() {
+      this.$addCategory.addEventListener("click", async (ev) => {
+        const name = document.querySelector(".todo-add input").value,
+          user = document.querySelector("#todo-add__user").value,
+          data = {
+            name,
+            user,
+          };
+        await fetch("/postCategory", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        location.reload();
+      });
+
       this.$tagAddLis.forEach((addLi) => {
         addLi.addEventListener("click", (ev) => {
-          ev.target.querySelector(".tag--add__form .tag--add__input").focus();
+          switch (ev.target.type) {
+            case "text":
+              break;
+            case undefined:
+              ev.target.parentNode
+                .querySelector(".tag--add__form .tag--add__input")
+                .focus();
+              break;
+            default:
+              ev.target
+                .querySelector(".tag--add__form .tag--add__input")
+                .focus();
+          }
         });
       });
 
       this.$tagForms.forEach((tagForm) => {
-        tagForm.addEventListener("submit", (ev) => {
-          ev.preventDefault();
-          const input = ev.target.querySelector(".tag--add__input");
-          console.log("Adding", input.value);
-          input.value = "";
-        });
-
         tagForm.addEventListener("keydown", (ev) => {
           if (ev.keyCode === 32) {
-            console.log("Adding", ev.target.value);
-            ev.target.value = "";
-            setTimeout(() => (ev.target.value = ""), 50);
+            ev.target.parentNode.submit();
           }
         });
       });

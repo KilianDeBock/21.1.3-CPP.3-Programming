@@ -234,7 +234,8 @@ main > * {
     width: calc(100% - 2rem);
 }
 
-.todo-add button {
+.todo-add__task,
+.todo-add__category {
     font-size: 0;
     padding: 1.2rem;
     right: .4rem;
@@ -248,12 +249,28 @@ main > * {
     background-image: url("/media/icons/paper-plane-solid.svg");
 }
 
-.todo-add button:hover {
+.todo-add__task:hover {
     background-color: var(--color-green-500);
 }
 
-.todo-add button:active {
+.todo-add__task:active {
     background-color: var(--color-green-800);
+}
+
+.todo-add__category {
+    right: 3.5rem;
+    background-position: center;
+    background-size: 55%;
+    background-color: var(--color-blue-300);
+    background-image: url("/media/icons/folder-plus-solid.svg");
+}
+
+.todo-add__category:hover {
+    background-color: var(--color-blue-500);
+}
+
+.todo-add__category:active {
+    background-color: var(--color-blue-800);
 }
 
 .task-item {
@@ -345,7 +362,7 @@ main > * {
     border-radius: 1rem;
 }
 
-.tag--add__button {
+.tag--add__icon {
     margin-left: .2rem;
 }
 
