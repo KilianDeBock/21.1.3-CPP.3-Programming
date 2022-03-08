@@ -2,27 +2,25 @@
  * A Register Controller
  */
 
-import { getConnection } from 'typeorm';
-
 export const register = async (req, res) => {
   // errors
   const formErrors = [{
-    message: "Another annoying error."
+    message: 'Another annoying error.'
   }, {
-    message: "Something went wrong."
-  }]
+    message: 'Something went wrong.'
+  }];
 
   // input fields
   const inputs = [{
     name: 'email',
     label: 'E-mail',
     type: 'text',
-    error: "Something went wrong"
+    error: 'Something went wrong'
   }, {
     name: 'password',
     label: 'Password',
     type: 'password'
-  }]
+  }];
 
   // render the register page
   res.render('register', {
@@ -30,11 +28,19 @@ export const register = async (req, res) => {
     inputs,
     formErrors,
   });
-}
+};
+
+export const postRegister = (req, res, next) => {
+  try {
+
+  } catch (e) {
+    next(e.message);
+  }
+};
 
 export const login = async (req, res) => {
   // errors
-  const formErrors = []
+  const formErrors = [];
 
   // input fields
   const inputs = [{
@@ -45,7 +51,7 @@ export const login = async (req, res) => {
     name: 'password',
     label: 'Password',
     type: 'password'
-  }]
+  }];
 
   // render the login page
   res.render('login', {
@@ -53,4 +59,20 @@ export const login = async (req, res) => {
     inputs,
     formErrors
   });
-}
+};
+
+export const postLogin = (req, res, next) => {
+  try {
+
+  } catch (e) {
+    next(e.message);
+  }
+};
+
+export const logout = (req, res, next) => {
+  try {
+
+  } catch (e) {
+    next(e.message);
+  }
+};
