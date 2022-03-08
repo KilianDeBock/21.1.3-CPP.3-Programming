@@ -19,6 +19,7 @@ import {
 import cookieParser from 'cookie-parser';
 import validationAuthentication
   from './middleware/validation/authentication.js';
+import {jwtAuth} from './middleware/jwtAuth.js';
 
 const app = express();
 app.use(express.static('public'));
@@ -52,7 +53,7 @@ app.set('views', path.join(SOURCE_PATH, 'views'));
  * App Routing
  */
 
-app.get('/', home);
+app.get('/', jwtAuth, home);
 app.get('/login', login);
 app.get('/register', register);
 app.post('/register', ...validationAuthentication, postRegister, register);

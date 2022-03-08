@@ -2,7 +2,7 @@
  * A Home Controller
  */
 
-import { getConnection } from 'typeorm';
+import {getConnection} from 'typeorm';
 
 export const home = async (req, res) => {
   // get the user repository
@@ -10,11 +10,14 @@ export const home = async (req, res) => {
 
   // for DEMO, return the first user in the users table
   const userData = await userRepository.findOne({
-    relations: [ "user_meta" ]
+    where: {
+      id: req.user?.userId
+    },
+    relations: ['user_meta']
   });
 
   // render the home page
   res.render('home', {
     userData
   });
-}
+};
