@@ -2,24 +2,25 @@
  * A Register Controller
  */
 
+import {validationResult} from 'express-validator';
+
 export const register = async (req, res) => {
   // errors
-  const formErrors = [{
-    message: 'Another annoying error.'
-  }, {
-    message: 'Something went wrong.'
-  }];
+  const formErrors = [];
 
   // input fields
   const inputs = [{
     name: 'email',
     label: 'E-mail',
     type: 'text',
-    error: 'Something went wrong'
+    value: req.body?.email ? req.body.email : '',
+    error: req.formErrorFields?.email ? req.formErrorFields.email : ''
   }, {
     name: 'password',
     label: 'Password',
-    type: 'password'
+    type: 'password',
+    value: req.body?.password ? req.body.password : '',
+    error: req.formErrorFields?.password ? req.formErrorFields.password : ''
   }];
 
   // render the register page
@@ -32,6 +33,15 @@ export const register = async (req, res) => {
 
 export const postRegister = (req, res, next) => {
   try {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      req.formErrorFields = {};
+      errors.array().forEach(({msg, param}) => {
+        req.formErrorFields[param] = msg;
+      });
+      return next();
+    }
 
   } catch (e) {
     next(e.message);

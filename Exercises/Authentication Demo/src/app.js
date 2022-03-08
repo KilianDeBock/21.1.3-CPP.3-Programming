@@ -17,6 +17,8 @@ import {
   register
 } from './controllers/authentication.js';
 import cookieParser from 'cookie-parser';
+import validationAuthentication
+  from './middleware/validation/authentication.js';
 
 const app = express();
 app.use(express.static('public'));
@@ -53,8 +55,8 @@ app.set('views', path.join(SOURCE_PATH, 'views'));
 app.get('/', home);
 app.get('/login', login);
 app.get('/register', register);
-app.post('/register', postRegister);
-app.post('/login', postLogin);
+app.post('/register', ...validationAuthentication, postRegister, register);
+app.post('/login', ...validationAuthentication, postLogin, login);
 app.post('/logout', logout);
 
 /**
@@ -64,7 +66,7 @@ app.post('/logout', logout);
 app.get('/api/user', getUsers);
 
 /**
- * Create datbase connection and start listening
+ * Create database connection and start listening
  */
 
 createConnection({
