@@ -1,0 +1,122 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-primary: #16A085;
+    --color-primary-light: #1acaa7;
+    --color-primary-transparant: #16A0858f;
+    --color-secondary: #F4D03F;
+}
+
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background: linear-gradient(to bottom, var(--color-primary), var(--color-secondary));
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+}
+
+body article {
+    padding: 1rem;
+    border: 1px solid var(--color-primary);
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/** first part of application **/
+
+#splash {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#splash div {
+    margin: 2rem;
+}
+
+#pokeball {
+    width: 10vw;
+    height: 10vw;
+    transition: all 0.4s ease-in-out;
+    cursor: move;
+    background: url('../images/pokeball.png') no-repeat center center;
+    background-size: contain;
+}
+
+#pokeball:hover {
+    transform: scale(1.2);
+}
+
+#pikachu {
+    width: 20vw;
+    height: 20vw;
+
+    background: url('../images/pikachu.png') no-repeat center center;
+    background-size: contain;
+
+    position: relative;
+}
+
+
+.jump {
+    transition: all 1s ease;
+    animation: jump 0.4s ease-in-out infinite alternate;
+}
+
+.catch {
+    transform: scale(0.4);
+}
+
+.captured {
+   display: none;
+}
+
+@keyframes jump {
+    from {
+        bottom: 0;
+    }
+    to {
+        bottom: 1rem;
+    }
+}
+
+/** second part of our application **/
+h1 {
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.list {
+    list-style: none;
+}
+
+.list li {
+    border: 1px solid var(--color-secondary);
+    background-color: var(--color-primary);
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+.list li:hover {
+    background-color: var(--color-primary-light);
+}
+
+
+.list li.hint {
+    border-style: dotted;  
+    background-color: var(--color-primary-transparant);
+}
+
+.list li.active {
+    background-color: var(--color-secondary);
+}
