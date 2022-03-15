@@ -1,0 +1,29 @@
+{
+  "name": "swagger-jest-demo",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start:dev": "nodemon ./src/app.js --config nodemon.json",
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --coverage"
+  },
+  "keywords": [],
+  "author": "Arteveldehogeschool",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-handlebars": "^6.0.2",
+    "handlebars": "^4.7.7",
+    "nodemon": "^2.0.15",
+    "sqlite3": "^5.0.2",
+    "swagger-ui-express": "^4.3.0",
+    "typeorm": "^0.2.44"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1",
+    "supertest": "^6.2.2"
+  }
+}
