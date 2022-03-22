@@ -1,11 +1,11 @@
-import "dotenv/config";
-import entities from "../../models/index.js";
+import 'dotenv/config';
 
-import typeorm from "typeorm";
+import typeorm from 'typeorm';
+
 const { createConnection, getConnection } = typeorm;
 
 // connect to database
-class DatabaseSeeder {
+export default class DatabaseSeeder {
   constructor(type, database, entities) {
     this.type = type;
     this.database = database;
@@ -19,5 +19,18 @@ class DatabaseSeeder {
       entities: this.entities,
       synchronize: true,
     });
+  }
+
+  async run(factory, amount = 1) {
+    // Connect to the database
+    await this.connect();
+
+    if (amount > 1) {
+      await factory.makeMany(amount);
+    } else {
+      await factory.make(amount);
+    }
+    return factory.inserted;
+
   }
 }
